@@ -46,13 +46,13 @@ export default {
             this.$bus.$emit('swichTodo', this.index, val)
         },
         handleEdit() {
-            this.inputVisible = !this.inputVisible
+            this.inputVisible = true
             this.$nextTick(() => {
                 this.$refs.editInput.focus()
             })
         },
         handleBlur() {
-            this.inputVisible = !this.inputVisible
+            this.inputVisible = false
 
             if (this.$refs.editInput.value.trim() === '') {
                 return this.$message({
@@ -68,14 +68,11 @@ export default {
             )
         },
         handleEnter() {
-            // this.inputVisible = !this.inputVisible
             this.$refs.editInput.blur()
-            // this.handleBlur()
-            console.log(1)
         },
         handleDelete() {
             this.$bus.$emit('deleteTodo', this.index)
-        },
+        }
     },
 }
 </script>
@@ -117,10 +114,10 @@ export default {
 
 .titleWrapper ::v-deep input {
     height: 25px;
-    border:0.5px solid #409eff;
+    border: 0.5px solid #409eff;
     border-radius: 5px;
     padding: 0px 10px;
     width: 800px;
-    outline:none;
+    outline: none;
 }
 </style>

@@ -29,20 +29,10 @@ export default {
     methods: {
         handleCurrentChange(val) {
             this.currentPage = val
-            /*   this.$bus.$emit(
-                'getCurrentPageData',
-                this.currentPageData,
-                this.startIndex
-            ) */
         },
         handleSizeChange(val) {
             this.pageSize = val
             this.currentPage = 1 // 切换每页显示数量时重置当前页数为1
-            /*   this.$bus.$emit(
-                'getCurrentPageData',
-                this.currentPageData,
-                this.startIndex
-            ) */
         },
     },
     computed: {
