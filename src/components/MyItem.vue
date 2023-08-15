@@ -3,17 +3,22 @@
         <el-checkbox :value="todo.done" @change="handlechange">
             <div class="titleWrapper">
                 <span v-show="!inputVisible"> {{ todo.title }}</span>
-                <el-input
+                <input
                     v-show="inputVisible"
-                    v-model="todo.title"
+                    :value="todo.title"
                     type="text"
                     ref="editInput"
                     @blur="handleBlur"
+                    @keyup.enter="handleEnter"
                 />
             </div>
 
             <div class="btnWrapper">
-                <el-button class="delButton" type="primary" @click="handleEdit"
+                <el-button
+                    class="delButton"
+                    type="primary"
+                    @click="handleEdit"
+                    v-show="!inputVisible"
                     >编辑</el-button
                 >
                 <el-button class="delButton" type="danger" @click="handleDelete"
@@ -48,6 +53,25 @@ export default {
         },
         handleBlur() {
             this.inputVisible = !this.inputVisible
+
+            if (this.$refs.editInput.value.trim() === '') {
+                return this.$message({
+                    type: 'error',
+                    message: '输入不能为空',
+                })
+            }
+
+            this.$bus.$emit(
+                'updateTodo',
+                this.index,
+                this.$refs.editInput.value
+            )
+        },
+        handleEnter() {
+            // this.inputVisible = !this.inputVisible
+            this.$refs.editInput.blur()
+            // this.handleBlur()
+            console.log(1)
         },
         handleDelete() {
             this.$bus.$emit('deleteTodo', this.index)
@@ -91,8 +115,12 @@ export default {
     display: block;
 }
 
-.titleWrapper ::v-deep .el-input__inner {
-    height: 30px;
-    // width: 600px;
+.titleWrapper ::v-deep input {
+    height: 25px;
+    border:0.5px solid #409eff;
+    border-radius: 5px;
+    padding: 0px 10px;
+    width: 800px;
+    outline:none;
 }
 </style>

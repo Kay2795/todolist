@@ -128,6 +128,9 @@ export default {
         this.$bus.$on('getPageSize', (pageSize) => {
             this.pageSize = pageSize
         })
+        this.$bus.$on('updateTodo', (index, value) => {
+            this.todos[index].title = value
+        })
     },
     beforeDestroy() {
         this.$bus.$off([
